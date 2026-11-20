@@ -1,0 +1,255 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE CASE // 001</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#050507;--panel:#0b0910;--panel2:#100b15;--line:#2b153b;--purple:#a855f7;--purple2:#7c28b5;--text:#eee;--muted:#85808b;--red:#ff5577;--green:#72f59a}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 50% -10%,#66119b33,transparent 45%),radial-gradient(circle at 90% 80%,#50008022,transparent 35%)}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.top{height:70px;border-bottom:1px solid var(--line);background:#08070be8;backdrop-filter:blur(18px);display:flex;align-items:center;justify-content:space-between;padding:0 38px;position:sticky;top:0;z-index:10}
+.logo{font-weight:900;letter-spacing:5px}.logo span{color:var(--purple)}
+.status{font-size:10px;letter-spacing:2px;color:var(--muted)}.status b{color:var(--green)}
+.container{max-width:1200px;margin:auto;padding:55px 25px 80px}
+.hero{text-align:center;padding:25px 0 50px}
+.kicker{font-size:11px;letter-spacing:5px;color:var(--purple);font-weight:bold}
+h1{font-size:clamp(50px,9vw,100px);letter-spacing:12px;margin:15px 0;text-shadow:0 0 45px #9d3ee733}
+.subtitle{color:#77717c;font-size:12px;letter-spacing:4px}
+.layout{display:grid;grid-template-columns:1fr 310px;gap:20px}
+.panel{background:#0b0910e8;border:1px solid var(--line);box-shadow:0 0 50px #550f7715}
+.panelhead{height:58px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 22px}
+.panelhead b{font-size:11px;letter-spacing:3px}.badge{font-size:9px;letter-spacing:2px;color:var(--red)}
+.main{padding:30px}
+.caseid{font-size:10px;letter-spacing:4px;color:#77717c}
+.title{font-size:34px;font-weight:900;margin:8px 0 12px}
+.desc{color:#9c96a1;line-height:1.7;font-size:14px;max-width:750px}
+.progress{height:5px;background:#211528;margin:25px 0}.progress i{display:block;height:100%;background:var(--purple);width:0%;transition:.5s;box-shadow:0 0 15px var(--purple)}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:28px}
+.card{border:1px solid var(--line);background:#0e0b12;padding:22px;min-height:125px;color:white;text-align:left;transition:.2s}
+.card:hover{border-color:#9144c9;transform:translateY(-3px);box-shadow:0 12px 35px #8b2be522}
+.card.locked{opacity:.45}.icon{font-size:25px;margin-bottom:12px}.card strong{display:block;font-size:11px;letter-spacing:2px}.card small{display:block;color:#746d78;line-height:1.5;margin-top:8px}
+.side{display:flex;flex-direction:column;gap:20px}.sidebox{padding:22px}
+.sidebox h3{font-size:10px;letter-spacing:3px;color:#aaa3ad;margin-bottom:18px}
+.stat{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #211528;font-size:11px}.stat span{color:var(--muted)}
+.log{font-size:10px;color:#817987;line-height:1.8}
+.modal{display:none;position:fixed;inset:0;background:#000b;z-index:50;padding:35px;overflow:auto}
+.modal.show{display:flex;align-items:center;justify-content:center}
+.window{width:min(800px,100%);max-height:90vh;overflow:auto;background:#0a080e;border:1px solid #7935a5;box-shadow:0 0 80px #8b2be533}
+.windowhead{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.windowhead b{font-size:11px;letter-spacing:3px}.close{background:none;border:0;color:#aaa;font-size:22px}
+.windowbody{padding:28px}
+.evidence{border:1px solid var(--line);background:#100c14;padding:20px;margin-bottom:12px;cursor:pointer}
+.evidence:hover{border-color:var(--purple)}
+.evidence b{font-size:12px;letter-spacing:2px}.evidence p{color:#8b848f;font-size:12px;line-height:1.6;margin-top:7px}
+.inputrow{display:flex;gap:10px;margin-top:20px}
+input,textarea{width:100%;background:#08070b;border:1px solid #352044;color:white;padding:13px;outline:none}
+input:focus,textarea:focus{border-color:var(--purple)}
+.action{background:var(--purple2);border:1px solid #a855f7;color:white;padding:13px 20px;font-size:10px;font-weight:bold;letter-spacing:2px}
+.action:hover{background:#9639d0}
+.note{color:#aaa3ad;font-size:12px;line-height:1.7;margin-top:15px}
+.success{color:var(--green)!important}.danger{color:var(--red)!important}
+.choice{display:block;width:100%;background:#0e0b12;border:1px solid var(--line);color:#ddd;text-align:left;padding:16px;margin-top:10px}
+.choice:hover{border-color:var(--purple);background:#150e1c}
+footer{text-align:center;color:#4d4851;font-size:9px;letter-spacing:3px;padding:35px}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.tabs{grid-template-columns:1fr 1fr}.top{padding:0 18px}.container{padding:30px 15px}.main{padding:20px}}
+@media(max-width:500px){.tabs{grid-template-columns:1fr}.hero h1{letter-spacing:6px}}
+</style>
+</head>
+<body>
+
+<header class="top">
+<div class="logo">THE <span>CASE</span></div>
+<div class="status">SYSTEM <b>● ONLINE</b></div>
+</header>
+
+<div class="container">
+<section class="hero">
+<div class="kicker">CLASSIFIED // INVESTIGATION NETWORK</div>
+<h1>THE CASE</h1>
+<div class="subtitle">NOT EVERYTHING IS WHAT IT SEEMS.</div>
+</section>
+
+<div class="layout">
+<main class="panel">
+<div class="panelhead">
+<b>CASE FILE // 001</b>
+<span class="badge" id="caseStatus">● UNSOLVED</span>
+</div>
+
+<div class="main">
+<div class="caseid">CASE ID: TC-001-UNKNOWN</div>
+<div class="title">THE EMPTY ROOM</div>
+<p class="desc">
+Eine verschlossene Tür. Ein leerer Raum. Keine eindeutigen Spuren.
+Doch jemand war hier – und jemand wollte nicht, dass du es herausfindest.
+</p>
+
+<div class="progress"><i id="progressBar"></i></div>
+
+<div class="tabs">
+<button class="card" onclick="openEvidence()">
+<div class="icon">🔎</div><strong>EVIDENCE</strong>
+<small>Untersuche gefundene Beweise.</small>
+</button>
+
+<button class="card" onclick="openPersons()">
+<div class="icon">👤</div><strong>PERSONS</strong>
+<small>Untersuche die beteiligten Personen.</small>
+</button>
+
+<button class="card" onclick="openDocuments()">
+<div class="icon">📄</div><strong>DOCUMENTS</strong>
+<small>Lies wichtige Dokumente.</small>
+</button>
+
+<button class="card" onclick="openPhotos()">
+<div class="icon">📷</div><strong>PHOTOS</strong>
+<small>Analysiere das Bildmaterial.</small>
+</button>
+
+<button class="card" onclick="openCode()">
+<div class="icon">🔐</div><strong>LOCKED DATA</strong>
+<small>Entschlüssele gesperrte Daten.</small>
+</button>
+
+<button class="card" onclick="openNotes()">
+<div class="icon">📝</div><strong>MY NOTES</strong>
+<small>Speichere deine eigenen Theorien.</small>
+</button>
+</div>
+</div>
+</main>
+
+<aside class="side">
+<div class="panel sidebox">
+<h3>INVESTIGATION</h3>
+<div class="stat"><span>Beweise</span><b id="evidenceStat">0 / 4</b></div>
+<div class="stat"><span>Hinweise</span><b id="clueStat">0 / 3</b></div>
+<div class="stat"><span>Personen</span><b>3</b></div>
+<div class="stat"><span>Fortschritt</span><b id="percent">0%</b></div>
+</div>
+
+<div class="panel sidebox">
+<h3>ACTIVITY LOG</h3>
+<div class="log" id="log">
+21:09 — CASE INITIALIZED<br>
+21:09 — DATABASE CONNECTED<br>
+21:09 — INVESTIGATION READY
+</div>
+</div>
+</aside>
+</div>
+</div>
+
+<footer>THE CASE // INVESTIGATION NETWORK // 2026</footer>
+
+<div class="modal" id="modal">
+<div class="window">
+<div class="windowhead">
+<b id="modalTitle">CASE DATA</b>
+<button class="close" onclick="closeModal()">×</button>
+</div>
+<div class="windowbody" id="modalBody"></div>
+</div>
+</div>
+
+<script>
+const state=JSON.parse(localStorage.getItem("the_case_001")||'{"evidence":[],"clues":[],"code":false,"notes":""}');
+function save(){localStorage.setItem("the_case_001",JSON.stringify(state));update()}
+function log(t){const el=document.getElementById("log");el.innerHTML+="<br>"+new Date().toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"})+" — "+t}
+function update(){
+document.getElementById("evidenceStat").textContent=state.evidence.length+" / 4";
+document.getElementById("clueStat").textContent=state.clues.length+" / 3";
+let total=state.evidence.length+state.clues.length+(state.code?1:0);
+let p=Math.min(100,Math.round(total/8*100));
+document.getElementById("percent").textContent=p+"%";
+document.getElementById("progressBar").style.width=p+"%";
+if(p>=100){document.getElementById("caseStatus").textContent="● SOLVED";document.getElementById("caseStatus").className="badge success"}
+}
+function show(title,html){document.getElementById("modalTitle").textContent=title;document.getElementById("modalBody").innerHTML=html;document.getElementById("modal").classList.add("show")}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+function openEvidence(){
+show("EVIDENCE // ARCHIVE",`
+<div class="evidence" onclick="inspect(1)"><b>BEWEIS 001 — SCHLÜSSEL</b><p>Ein alter Schlüssel. Gefunden direkt vor der Tür.</p></div>
+<div class="evidence" onclick="inspect(2)"><b>BEWEIS 002 — UHR</b><p>Eine stehengebliebene Uhr. Die Zeiger zeigen 23:17.</p></div>
+<div class="evidence" onclick="inspect(3)"><b>BEWEIS 003 — PAPIER</b><p>Ein zerrissener Zettel mit einer ungewöhnlichen Zahlenfolge.</p></div>
+<div class="evidence" onclick="inspect(4)"><b>BEWEIS 004 — FINGERABDRUCK</b><p>Ein unbekannter Abdruck auf der Innenseite der Tür.</p></div>
+<p class="note">Klicke einen Beweis an, um ihn genauer zu untersuchen.</p>`)
+}
+function inspect(n){
+if(!state.evidence.includes(n)){state.evidence.push(n);save();log("BEWEIS "+String(n).padStart(3,"0")+" UNTERSUCHT")}
+const data={
+1:["SCHLÜSSEL","Der Schlüssel passt nicht zum Schloss der Eingangstür. Auf der Rückseite steht klein: <b>17</b>."],
+2:["UHR","Die Uhr ist exakt bei <b>23:17</b> stehen geblieben. Das scheint kein Zufall zu sein."],
+3:["PAPIER","Auf dem Papier steht: <b>23 — 17 — 04</b>. Die Zahlen könnten eine Kombination ergeben."],
+4:["FINGERABDRUCK","Der Abdruck ist frisch. Jemand war nach dem Verschließen noch im Raum."]
+};
+show("BEWEIS "+String(n).padStart(3,"0")+" // ANALYSE",`<div class="note">${data[n][1]}</div><button class="action" onclick="closeModal()">ZURÜCK</button>`)
+}
+function openPersons(){
+show("PERSONS // DATABASE",`
+<div class="evidence" onclick="person(1)"><b>PERSON 01 — ALEX</b><p>Besitzer des Apartments. Aussage: „Ich war um 22:30 Uhr zuhause.“</p></div>
+<div class="evidence" onclick="person(2)"><b>PERSON 02 — MAYA</b><p>Nachbarin. Aussage: „Ich habe um 23:17 Uhr ein Geräusch gehört.“</p></div>
+<div class="evidence" onclick="person(3)"><b>PERSON 03 — UNKNOWN</b><p>Identität unbekannt. Fingerabdruck stimmt mit keiner Akte überein.</p></div>`)
+}
+function person(n){
+const x=[
+["ALEX","Seine Aussage widerspricht einem Teil des gefundenen Materials."],
+["MAYA","Ihre Zeitangabe stimmt exakt mit der stehengebliebenen Uhr überein."],
+["UNKNOWN","Diese Person scheint der wichtigste Teil des Falls zu sein."]
+][n-1];
+show("PERSON // "+x[0],`<div class="note">${x[1]}</div><button class="action" onclick="closeModal()">AKTE SCHLIESSEN</button>`)
+}
+function openDocuments(){
+show("DOCUMENTS // ARCHIVE",`
+<div class="evidence"><b>DOCUMENT 001 — POLIZEIBERICHT</b><p>Keine Einbruchspuren. Tür wurde von innen verriegelt.</p></div>
+<div class="evidence"><b>DOCUMENT 002 — ZEITLINIE</b><p>22:30 — Alex zuhause. 23:17 — Geräusch. 23:21 — Tür entdeckt.</p></div>
+<div class="evidence"><b>DOCUMENT 003 — NOTIZ</b><p>„Wenn du das liest, such nicht nach dem Täter. Such nach dem Grund.“</p></div>`)
+if(!state.clues.includes(1)){state.clues.push(1);save();log("NEUER HINWEIS FREIGESCHALTET")}
+}
+function openPhotos(){
+show("PHOTOS // EVIDENCE",`
+<div class="evidence"><b>PHOTO 001</b><p>Ein Foto des leeren Raumes. Auf dem Tisch liegt ein einzelner Gegenstand.</p></div>
+<div class="evidence"><b>PHOTO 002</b><p>Die Tür von außen. Keine Beschädigungen.</p></div>
+<div class="evidence"><b>PHOTO 003</b><p>Eine Uhr an der Wand. 23:17.</p></div>
+<p class="note">Die Fotos enthalten möglicherweise Hinweise, die mit anderen Beweisen kombiniert werden müssen.</p>`)
+if(!state.clues.includes(2)){state.clues.push(2);save();log("FOTOMATERIAL ANALYSIERT")}
+}
+function openCode(){
+show("LOCKED DATA // ACCESS",`
+<p class="note">Ein Teil der Ermittlungsakte ist verschlüsselt.</p>
+<div class="inputrow"><input id="codeInput" maxlength="6" placeholder="CODE EINGEBEN"><button class="action" onclick="checkCode()">ENTSPERREN</button></div>
+<p id="codeResult" class="note"></p>
+`)
+}
+function checkCode(){
+const v=document.getElementById("codeInput").value.trim();
+if(v==="231704"){
+state.code=true;
+if(!state.clues.includes(3))state.clues.push(3);
+save();log("LOCKED DATA ENTSPERRT");
+document.getElementById("codeResult").innerHTML='<span class="success">✓ ZUGRIFF GEWÄHRT — NEUE INFORMATION ENTDECKT.</span><br><br>Die Zahlen 23-17-04 waren kein Zufall. Sie verweisen auf Beweis 004 und eine bestimmte Zeit.';
+}else{
+document.getElementById("codeResult").innerHTML='<span class="danger">✗ FALSCHER CODE — DER ZUGRIFF WURDE ABGELEHNT.</span>';
+log("FEHLERHAFTER ZUGRIFFSVERSUCH");
+}
+}
+function openNotes(){
+show("MY NOTES // INVESTIGATOR",`
+<textarea id="notes" rows="10" placeholder="Schreibe hier deine Theorie...">${state.notes||""}</textarea>
+<button class="action" onclick="saveNotes()" style="margin-top:12px">NOTIZEN SPEICHERN</button>
+<p id="noteResult" class="note"></p>`)
+}
+function saveNotes(){
+state.notes=document.getElementById("notes").value;
+save();log("NOTIZEN GESPEICHERT");
+document.getElementById("noteResult").innerHTML='<span class="success">✓ Gespeichert.</span>';
+}
+update();
+</script>
+</body>
+</html>

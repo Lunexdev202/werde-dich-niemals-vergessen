@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEXUS // Dark Purple Account</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="grid"></div><div class="orb orb1"></div><div class="orb orb2"></div>
+<header><div class="brand"><span>◈</span> NEXUS</div><button id="topBtn" class="ghost">LOGIN</button></header>
+
+<main>
+<section id="landing" class="hero">
+  <div class="copy">
+    <div class="tag"><i></i> SECURE USER SYSTEM</div>
+    <h1>YOUR DIGITAL<br><span>IDENTITY.</span></h1>
+    <p>Eine moderne Account-Plattform mit Profil, Dashboard und sicherem Login – komplett in einem futuristischen Cyber-Design.</p>
+    <div class="buttons"><button class="primary" onclick="showAuth('register')">Konto erstellen</button><button class="ghost" onclick="showAuth('login')">Einloggen</button></div>
+  </div>
+  <div class="terminal">
+    <div class="termbar"><span>● ● ●</span><b>nexus://dashboard</b></div>
+    <div class="termtext"><p><em>$</em> initialize_user()</p><p class="ok">✓ authentication ready</p><p class="ok">✓ encrypted sessions</p><p class="ok">✓ profile system</p><p><em>$</em> <span class="cursor">_</span></p></div>
+  </div>
+</section>
+
+<section id="auth" class="auth hidden">
+  <div class="panel">
+    <div class="tag"><i></i> <span id="authTag">ACCOUNT</span></div>
+    <h2 id="authTitle">Willkommen zurück.</h2>
+    <p id="authSub">Melde dich an, um dein Dashboard zu öffnen.</p>
+    <form id="authForm">
+      <label id="loginLabel">E-Mail oder Benutzername<input id="login" autocomplete="username"></label>
+      <div id="registerFields" class="hidden">
+        <label>Benutzername<input id="username" autocomplete="username"></label>
+        <label>E-Mail<input id="email" type="email" autocomplete="email"></label>
+      </div>
+      <label>Passwort<input id="password" type="password" autocomplete="current-password"></label>
+      <button class="primary full" type="submit" id="submitBtn">Einloggen</button>
+    </form>
+    <div id="authError" class="error"></div>
+    <p class="switch" id="switchText">Noch kein Konto? <button onclick="showAuth('register')">Registrieren</button></p>
+  </div>
+</section>
+
+<section id="dashboard" class="dashboard hidden">
+  <div class="dashhead"><div><div class="tag"><i></i> PRIVATE DASHBOARD</div><h2>Willkommen, <span id="dashName"></span>.</h2></div><button class="ghost" onclick="logout()">ABMELDEN</button></div>
+  <div class="cards">
+    <div class="card"><small>USERNAME</small><strong id="profileName">-</strong></div>
+    <div class="card"><small>EMAIL</small><strong id="profileEmail">-</strong></div>
+    <div class="card"><small>MITGLIED SEIT</small><strong id="profileDate">-</strong></div>
+  </div>
+  <div class="profileBox"><div><div class="avatar" id="avatar">N</div></div><div class="profileInfo"><h3>Dein Profil</h3><p>Deine Bio</p><textarea id="bio" maxlength="160" placeholder="Schreib etwas über dich..."></textarea><button class="primary" onclick="saveProfile()">Profil speichern</button><span id="saveMsg"></span></div></div>
+</section>
+</main>
+<footer>NEXUS // USER SYSTEM <span>SECURE • PRIVATE • MODERN</span></footer>
+<script src="app.js"></script>
+</body></html>
