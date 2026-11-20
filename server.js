@@ -1,4 +1,4 @@
-const http = require("http");
+﻿const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
@@ -59,9 +59,9 @@ const server = http.createServer(async (req, res) => {
       const {username, email, password} = await body(req);
       const u = String(username || "").trim();
       const e = String(email || "").trim().toLowerCase();
-      if (u.length < 3 || u.length > 24) return send(res, 400, {error:"Benutzername muss 3–24 Zeichen lang sein."});
-      if (!/^[a-zA-Z0-9_.-]+$/.test(u)) return send(res, 400, {error:"Benutzername enthält ungültige Zeichen."});
-      if (!e.includes("@")) return send(res, 400, {error:"Bitte eine gültige E-Mail eingeben."});
+      if (u.length < 3 || u.length > 24) return send(res, 400, {error:"Benutzername muss 3â€“24 Zeichen lang sein."});
+      if (!/^[a-zA-Z0-9_.-]+$/.test(u)) return send(res, 400, {error:"Benutzername enthÃ¤lt ungÃ¼ltige Zeichen."});
+      if (!e.includes("@")) return send(res, 400, {error:"Bitte eine gÃ¼ltige E-Mail eingeben."});
       if (String(password || "").length < 8) return send(res, 400, {error:"Passwort muss mindestens 8 Zeichen haben."});
       const users = loadUsers();
       if (users.some(x => x.username.toLowerCase() === u.toLowerCase())) return send(res, 409, {error:"Benutzername ist bereits vergeben."});
@@ -109,6 +109,10 @@ const server = http.createServer(async (req, res) => {
       return send(res, 200, {user:{id:user.id,username:user.username,email:user.email,bio:user.bio,createdAt:user.createdAt}});
     }
 
+    if (req.method === "GET" && parsed.pathname === "/legal") {
+      res.writeHead(200, {"Content-Type":"text/html; charset=utf-8"});
+      return res.end(`<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Rechtliches // THE CASE</title><style>body{margin:0;background:#09060f;color:#eee;font-family:Arial,sans-serif;padding:40px;line-height:1.7}main{max-width:900px;margin:auto;background:#120b1d;border:1px solid #6d28d9;border-radius:16px;padding:36px;box-shadow:0 0 40px #4c1d9555}h1{color:#c084fc}h2{color:#d8b4fe;border-bottom:1px solid #3b1d5c;padding-bottom:8px}a{color:#c084fc}.box{background:#0d0815;border:1px solid #2d1745;border-radius:10px;padding:16px;margin:18px 0}</style></head><body><main><h1>THE CASE // RECHTLICHES</h1><div class="box"><h2>1. Impressum</h2><p><strong>Betreiber:</strong><br>THE CASE</p><p><strong>Anschrift:</strong><br>Online-Projekt / keine öffentliche Anschrift<br>Deutschland<br>Deutschland</p><p><strong>E-Mail:</strong><br>kontakt@the-case.example</p></div><div class="box"><h2>2. Datenschutzerklärung / DSGVO</h2><p>THE CASE verarbeitet personenbezogene Daten, soweit dies für die Bereitstellung der Benutzerkonten und Funktionen erforderlich ist.</p><p>Bei einer Registrierung können insbesondere Benutzername, E-Mail-Adresse, Passwort-Hash, Profilinformationen und technische Sitzungsdaten verarbeitet werden.</p><p>Passwörter werden nicht im Klartext gespeichert, sondern als Hash verarbeitet.</p><p>Zur Anmeldung wird ein technisch notwendiges Session-Cookie verwendet. Dieses dient ausschließlich der Sitzungsverwaltung.</p><p>Betroffene Personen haben im Rahmen der gesetzlichen Voraussetzungen insbesondere Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung und Widerspruch.</p><p><strong>Kontakt Datenschutz:</strong><br>kontakt@the-case.example</p></div><div class="box"><h2>3. Allgemeine Geschäftsbedingungen (AGB)</h2><p>Die Nutzung von THE CASE erfolgt ausschließlich im Rahmen der geltenden gesetzlichen Vorschriften.</p><p>Die Nutzer sind dafür verantwortlich, ihre Zugangsdaten vertraulich zu behandeln und keine rechtswidrigen Inhalte oder Aktivitäten über die Plattform durchzuführen.</p><p>Der Betreiber kann Funktionen ändern, erweitern, einschränken oder einstellen, soweit dies im Rahmen der gesetzlichen Vorgaben zulässig ist.</p><p>Eine missbräuchliche Nutzung kann zum Ausschluss von der Nutzung führen, soweit dies rechtlich zulässig ist.</p><p>Die Nutzung von THE CASE setzt die Anerkennung der jeweils geltenden Nutzungsbedingungen voraus.</p></div><p><a href="/">← Zurück zu THE CASE</a></p></main></body></html>`);
+    }
     if (req.method === "GET") return serve(res, parsed.pathname);
     send(res, 404, {error:"Not found"});
   } catch (e) {
@@ -117,4 +121,7 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, () => console.log(`Cyber Account Web läuft auf http://localhost:${PORT}`));
+server.listen(PORT, () => console.log(`Cyber Account Web lÃ¤uft auf http://localhost:${PORT}`));
+
+
+
