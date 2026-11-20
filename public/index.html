@@ -59,7 +59,7 @@ footer{text-align:center;color:#4d4851;font-size:9px;letter-spacing:3px;padding:
 @media(max-width:500px){.tabs{grid-template-columns:1fr}.hero h1{letter-spacing:6px}}
 </style>
 <style>.legal-nav{position:fixed;top:18px;right:24px;z-index:9999;display:flex;gap:10px}.legal-nav a{color:#d8b4fe;text-decoration:none;border:1px solid #7c3aed;background:#12091f;padding:9px 14px;border-radius:8px;font:600 12px Arial;letter-spacing:1px;box-shadow:0 0 15px #7c3aed55}.legal-nav a:hover{background:#7c3aed;color:#fff;box-shadow:0 0 22px #a855f7aa}</style></head>
-<div class="legal-nav"><a href="/legal#impressum">IMPRESSUM</a><a href="/legal#datenschutz">DSGVO</a><a href="/legal#agb">AGB</a></div><body>
+<div class="legal-nav"><a href="/legal#impressum">IMPRESSUM</a><a href="/legal#datenschutz">DSGVO</a><a href="/legal#agb">AGB</a></div><body><div id="legal-menu"><button onclick="document.getElementById('legal-dropdown').classList.toggle('open')">RECHTLICHES ▾</button><div id="legal-dropdown"><a href="/legal#impressum">Impressum</a><a href="/legal#datenschutz">Datenschutz</a><a href="/legal#agb">AGB</a></div></div><style>#legal-menu{position:fixed;top:18px;right:22px;z-index:99999}#legal-menu button{cursor:pointer;background:#10051c;color:#d8b4fe;border:1px solid #7c3aed;border-radius:8px;padding:10px 15px;font-size:11px;font-weight:700;letter-spacing:1px;box-shadow:0 0 14px #7c3aed55}#legal-dropdown{display:none;position:absolute;right:0;top:43px;min-width:150px;background:#10051c;border:1px solid #7c3aed;border-radius:8px;overflow:hidden;box-shadow:0 0 20px #7c3aed55}#legal-dropdown.open{display:block}#legal-dropdown a{display:block;padding:11px 14px;color:#d8b4fe;text-decoration:none;font:600 12px Arial}#legal-dropdown a:hover{background:#7c3aed;color:#fff}</style>
 
 <header class="top">
 <div class="logo">THE <span>CASE</span></div>
@@ -253,4 +253,6 @@ update();
 </script>
 </body>
 </html>
+
+
 
