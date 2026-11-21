@@ -172,7 +172,8 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, () => console.log(`Cyber Account Web lÃ¤uft auf http://localhost:${PORT}`));
+server.listen(PORT, () => console.log(`Gedenkseite läuft auf http://localhost:${PORT}`));
+
 
 
 
