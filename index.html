@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>In liebevoller Erinnerung</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#050308;color:#fff;min-height:100vh}
+body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle at top,#321052 0%,#12081b 35%,#050308 70%);z-index:-1}
+.container{width:min(950px,92%);margin:auto}
+.hero{text-align:center;padding:70px 20px 45px}
+.photo{width:150px;height:150px;margin:auto;border-radius:50%;border:3px solid #9b4dff;background:#160b20;display:flex;align-items:center;justify-content:center;font-size:55px;box-shadow:0 0 35px #8b3dff55}
+h1{margin-top:25px;font-size:42px;color:#fff;text-shadow:0 0 20px #a855f7}
+.dates{margin-top:12px;color:#c9a9df;font-size:18px}
+section{background:#0d0712dd;border:1px solid #5b237d;border-radius:18px;padding:28px;margin:22px 0;box-shadow:0 0 25px #7c3aed18}
+h2{color:#c084fc;margin-bottom:18px}
+.memoryText{color:#ddd;line-height:1.8}
+.personData{text-align:center}
+.formGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:18px 0}
+input{width:100%;padding:13px;border:1px solid #6d28d9;border-radius:10px;background:#09050d;color:#fff}
+input::placeholder{color:#9d8aa8}
+button{border:0;border-radius:10px;padding:13px 20px;background:#7c3aed;color:#fff;font-weight:bold;cursor:pointer}
+button:hover{background:#9333ea}
+button:disabled{cursor:not-allowed}
+.candle{text-align:center}
+#count{margin:12px 0;color:#d8b4fe}
+#candles{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px;font-size:28px}
+.candleItem{animation:glow 1.8s infinite alternate}
+@keyframes glow{from{filter:drop-shadow(0 0 3px #f59e0b)}to{filter:drop-shadow(0 0 14px #f59e0b)}}
+footer{text-align:center;color:#76627f;padding:35px 10px}
+@media(max-width:600px){h1{font-size:30px}.formGrid{grid-template-columns:1fr}.hero{padding-top:45px}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="hero">
+<div class="photo">🕊️</div>
+<h1 id="personName">In liebevoller Erinnerung</h1>
+<p class="dates" id="personDates">In stiller Erinnerung</p>
+</header>
+
+<section class="personData">
+<h2>🕊️ Gedenkdaten</h2>
+<div class="formGrid">
+<input id="nameInput" type="text" placeholder="Name der verstorbenen Person">
+<input id="birthInput" type="date" title="Geburtsdatum">
+<input id="deathInput" type="date" title="Sterbedatum">
+<input id="timeInput" type="time" title="Uhrzeit des Todes">
+</div>
+<button onclick="savePersonData()">💾 Gedenkdaten speichern</button>
+</section>
+
+<section>
+<h2>Zum Gedenken</h2>
+<p class="memoryText">In liebevoller Erinnerung an einen besonderen Menschen. Diese Seite soll einen Ort schaffen, an dem Erinnerungen, Gedanken und Gefühle bewahrt werden können.</p>
+</section>
+
+<section>
+<h2>Erinnerungen</h2>
+<p class="memoryText">Hier können später besondere Erinnerungen und Fotos an die verstorbene Person eingefügt werden.</p>
+</section>
+
+<section class="candle">
+<h2>🕯️ Eine Kerze anzünden</h2>
+<p>Hinterlasse eine Kerze zum Gedenken.</p>
+<p id="count">0 Kerzen brennen</p>
+<button onclick="lightCandle()">🕯️ Kerze anzünden</button>
+<div id="candles"></div>
+</section>
+
+<section>
+<h2>💜 Worte des Abschieds</h2>
+<p class="memoryText">Hier können später persönliche Kondolenznachrichten gesammelt werden.</p>
+</section>
+
+<footer>In stiller Erinnerung · Für immer im Herzen</footer>
+</div>
+
+<script>
+async function loadCandles(){
+ try{
+  const r=await fetch("/api/candles");
+  const d=await r.json();
+  document.getElementById("count").textContent=d.count+" Kerze"+(d.count===1?"":"n")+" brennen";
+  document.getElementById("candles").innerHTML="";
+  for(let i=0;i<d.count;i++){
+   const c=document.createElement("span");
+   c.className="candleItem";
+   c.textContent="🕯️";
+   document.getElementById("candles").appendChild(c);
+  }
+  const b=document.querySelector(".candle button");
+  if(d.hasCandle){
+   b.disabled=true;
+   b.textContent="🕯️ Deine Kerze brennt bereits";
+   b.style.opacity=".5";
+  }
+ }catch(e){console.error(e)}
+}
+
+async function lightCandle(){
+ try{
+  const r=await fetch("/api/candle",{method:"POST"});
+  const d=await r.json();
+  document.getElementById("count").textContent=d.count+" Kerze"+(d.count===1?"":"n")+" brennen";
+  if(d.ok){
+   const c=document.createElement("span");
+   c.className="candleItem";
+   c.textContent="🕯️";
+   document.getElementById("candles").appendChild(c);
+  }
+  const b=document.querySelector(".candle button");
+  b.disabled=true;
+  b.textContent="🕯️ Deine Kerze brennt bereits";
+  b.style.opacity=".5";
+ }catch(e){alert("Die Kerze konnte nicht angezündet werden.")}
+}
+
+function applyPersonData(d){
+ const fmt=x=>x?new Date(x+"T00:00:00").toLocaleDateString("de-DE"):"";
+ document.getElementById("personName").textContent=d.name||"In liebevoller Erinnerung";
+ let text="";
+ if(d.birth)text+=fmt(d.birth)+" – ";
+ if(d.death)text+=fmt(d.death);
+ if(d.time)text+=" um "+d.time+" Uhr";
+ document.getElementById("personDates").textContent=text||"In stiller Erinnerung";
+}
+
+async function savePersonData(){
+ const name=document.getElementById("nameInput").value.trim();
+ const birth=document.getElementById("birthInput").value;
+ const death=document.getElementById("deathInput").value;
+ const time=document.getElementById("timeInput").value;
+ if(!name||!death||!time){
+  alert("Bitte Name, Sterbedatum und Uhrzeit eintragen.");
+  return;
+ }
+ localStorage.setItem("memorialName",name);
+ const r=await fetch("/api/memorial",{
+  method:"POST",
+  headers:{"Content-Type":"application/json"},
+  body:JSON.stringify({birth,death,time})
+ });
+ if(!r.ok){
+  alert("Die Gedenkdaten konnten nicht gespeichert werden.");
+  return;
+ }
+ applyPersonData({name,birth,death,time});
+ alert("Gespeichert. Der Name bleibt nur auf diesem Gerät.");
+}
+
+async function loadPersonData(){
+ try{
+  const r=await fetch("/api/memorial");
+  const d=await r.json();
+  const name=localStorage.getItem("memorialName")||"";
+  document.getElementById("nameInput").value=name;
+  document.getElementById("birthInput").value=d.birth||"";
+  document.getElementById("deathInput").value=d.death||"";
+  document.getElementById("timeInput").value=d.time||"";
+  applyPersonData({name,birth:d.birth||"",death:d.death||"",time:d.time||""});
+ }catch(e){console.error(e)}
+}
+loadPersonData();
+loadCandles();
+</script>
+</body>
+</html>
+
+
+
