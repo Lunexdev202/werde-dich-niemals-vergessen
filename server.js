@@ -152,9 +152,9 @@ const server = http.createServer(async (req, res) => {
 
   if (req.method === "POST" && parsed.pathname === "/api/memorial") {
     const data=await body(req);
-    if(!data.name||!data.death||!data.time)return send(res,400,{error:"Name, Sterbedatum und Uhrzeit erforderlich"});
+    if(!data.death||!data.time)return send(res,400,{error:"Sterbedatum und Uhrzeit erforderlich"});
     const clean={
-      name:String(data.name).trim(),
+      
       birth:String(data.birth||""),
       death:String(data.death).trim(),
       time:String(data.time).trim()
@@ -173,6 +173,7 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => console.log(`Gedenkseite läuft auf http://localhost:${PORT}`));
+
 
 
 

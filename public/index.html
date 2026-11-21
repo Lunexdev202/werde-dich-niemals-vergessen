@@ -3,171 +3,636 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>In liebevoller Erinnerung</title>
+<title>Werde dich niemals vergessen 🕊️</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#050308;color:#fff;min-height:100vh}
-body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle at top,#321052 0%,#12081b 35%,#050308 70%);z-index:-1}
-.container{width:min(950px,92%);margin:auto}
+html{scroll-behavior:smooth}
+body{
+font-family:Arial,sans-serif;
+background:#050308;
+color:#fff;
+min-height:100vh;
+line-height:1.6
+}
+body:before{
+content:"";
+position:fixed;
+inset:0;
+background:
+radial-gradient(circle at 50% 0%,#351052 0%,#16091f 35%,#050308 75%);
+z-index:-1
+}
+.container{width:min(1000px,92%);margin:auto}
 .hero{text-align:center;padding:70px 20px 45px}
-.photo{width:150px;height:150px;margin:auto;border-radius:50%;border:3px solid #9b4dff;background:#160b20;display:flex;align-items:center;justify-content:center;font-size:55px;box-shadow:0 0 35px #8b3dff55}
-h1{margin-top:25px;font-size:42px;color:#fff;text-shadow:0 0 20px #a855f7}
-.dates{margin-top:12px;color:#c9a9df;font-size:18px}
-section{background:#0d0712dd;border:1px solid #5b237d;border-radius:18px;padding:28px;margin:22px 0;box-shadow:0 0 25px #7c3aed18}
-h2{color:#c084fc;margin-bottom:18px}
-.memoryText{color:#ddd;line-height:1.8}
-.personData{text-align:center}
-.formGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:18px 0}
-input{width:100%;padding:13px;border:1px solid #6d28d9;border-radius:10px;background:#09050d;color:#fff}
-input::placeholder{color:#9d8aa8}
-button{border:0;border-radius:10px;padding:13px 20px;background:#7c3aed;color:#fff;font-weight:bold;cursor:pointer}
-button:hover{background:#9333ea}
-button:disabled{cursor:not-allowed}
+.photo{
+width:180px;height:180px;margin:auto;border-radius:50%;
+border:3px solid #a855f7;
+background:#12091a;
+display:flex;align-items:center;justify-content:center;
+overflow:hidden;
+box-shadow:0 0 45px #8b3dff66
+}
+.photo img{width:100%;height:100%;object-fit:cover}
+.photo span{font-size:65px}
+h1{
+margin-top:25px;font-size:44px;
+color:#fff;text-shadow:0 0 25px #a855f7
+}
+.subtitle{margin-top:10px;color:#c9a9df;font-size:17px}
+.dates{margin-top:12px;color:#e2c8ef;font-size:18px}
+section{
+background:#0d0712e8;
+border:1px solid #5b237d;
+border-radius:20px;
+padding:30px;
+margin:24px 0;
+box-shadow:0 0 30px #7c3aed18
+}
+h2{color:#c084fc;margin-bottom:18px;font-size:25px}
+p{color:#ddd}
+.memoryText{
+color:#ddd;
+line-height:1.9;
+white-space:pre-wrap;
+text-align:center
+}
+.formGrid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px;
+margin:18px 0
+}
+input,textarea{
+width:100%;
+padding:14px;
+border:1px solid #6d28d9;
+border-radius:11px;
+background:#09050d;
+color:#fff;
+outline:none
+}
+textarea{min-height:130px;resize:vertical}
+input:focus,textarea:focus{border-color:#c084fc}
+input::placeholder,textarea::placeholder{color:#9d8aa8}
+button{
+border:0;border-radius:11px;padding:13px 20px;
+background:#7c3aed;color:#fff;
+font-weight:bold;cursor:pointer;
+transition:.2s
+}
+button:hover{background:#9333ea;transform:translateY(-1px)}
+.secondary{background:#25102f}
+.secondary:hover{background:#361545}
+.status{
+margin-top:12px;
+font-size:14px;
+color:#c9a9df
+}
+.infoGrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+margin-top:20px
+}
+.infoCard{
+background:#160b20;
+border:1px solid #43205c;
+border-radius:14px;
+padding:18px;
+text-align:center
+}
+.infoCard strong{
+display:block;
+color:#c084fc;
+font-size:14px;
+margin-bottom:5px
+}
+.infoCard span{color:#fff;font-size:17px}
 .candle{text-align:center}
 #count{margin:12px 0;color:#d8b4fe}
-#candles{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px;font-size:28px}
-.candleItem{animation:glow 1.8s infinite alternate}
-@keyframes glow{from{filter:drop-shadow(0 0 3px #f59e0b)}to{filter:drop-shadow(0 0 14px #f59e0b)}}
-footer{text-align:center;color:#76627f;padding:35px 10px}
-@media(max-width:600px){h1{font-size:30px}.formGrid{grid-template-columns:1fr}.hero{padding-top:45px}}
+#candles{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+justify-content:center;
+margin-top:20px;
+font-size:30px
+}
+.candleItem{
+animation:glow 1.8s infinite alternate
+}
+@keyframes glow{
+from{filter:drop-shadow(0 0 3px #f59e0b)}
+to{filter:drop-shadow(0 0 14px #f59e0b)}
+}
+.gallery{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+margin-top:20px
+}
+.galleryItem{
+position:relative;
+aspect-ratio:1/1;
+border-radius:15px;
+overflow:hidden;
+border:1px solid #4b2064;
+background:#12091a
+}
+.galleryItem img{
+width:100%;
+height:100%;
+object-fit:cover
+}
+.empty{
+grid-column:1/-1;
+text-align:center;
+color:#8e7a98;
+padding:25px
+}
+.condolence{
+border-top:1px solid #382047;
+padding:18px 0
+}
+.condolence:first-child{border-top:0}
+.condolence strong{color:#c084fc}
+.condolence p{margin-top:5px}
+.actions{
+display:flex;
+gap:10px;
+justify-content:center;
+flex-wrap:wrap;
+margin-top:18px
+}
+footer{
+text-align:center;
+color:#76627f;
+padding:40px 10px
+}
+small{color:#76627f}
+@media(max-width:700px){
+h1{font-size:31px}
+.formGrid{grid-template-columns:1fr}
+.infoGrid{grid-template-columns:1fr}
+.gallery{grid-template-columns:repeat(2,1fr)}
+.hero{padding-top:45px}
+section{padding:22px}
+}
 </style>
 </head>
+
 <body>
 <div class="container">
 
 <header class="hero">
-<div class="photo">🕊️</div>
+<div class="photo" id="photoBox">
+<span>🕊️</span>
+</div>
+
 <h1 id="personName">In liebevoller Erinnerung</h1>
-<p class="dates" id="personDates">In stiller Erinnerung</p>
+
+<div class="subtitle">
+Für immer in unseren Herzen
+</div>
+
+<div class="dates" id="heroDates">
+Geburtsdatum · Sterbedatum
+</div>
+
+<div class="actions">
+<button onclick="document.getElementById('setup').scrollIntoView()">Gedenkseite bearbeiten</button>
+</div>
 </header>
 
-<section class="personData">
-<h2>🕊️ Gedenkdaten</h2>
+<section id="setup">
+<h2>🕊️ Gedenkperson</h2>
+
 <div class="formGrid">
-<input id="nameInput" type="text" placeholder="Name der verstorbenen Person">
-<input id="birthInput" type="date" title="Geburtsdatum">
-<input id="deathInput" type="date" title="Sterbedatum">
-<input id="timeInput" type="time" title="Uhrzeit des Todes">
+<input id="nameInput" placeholder="Name der Person">
+<input id="birthInput" type="date">
+<input id="deathInput" type="date">
+<input id="timeInput" type="time">
 </div>
-<button onclick="savePersonData()">💾 Gedenkdaten speichern</button>
+
+<input id="photoInput" type="file" accept="image/*">
+
+<div class="actions">
+<button onclick="savePerson()">Daten speichern</button>
+<button class="secondary" onclick="clearPerson()">Zurücksetzen</button>
+</div>
+
+<div class="status" id="saveStatus"></div>
 </section>
 
 <section>
-<h2>Zum Gedenken</h2>
-<p class="memoryText">In liebevoller Erinnerung an einen besonderen Menschen. Diese Seite soll einen Ort schaffen, an dem Erinnerungen, Gedanken und Gefühle bewahrt werden können.</p>
+<h2>💜 In liebevoller Erinnerung</h2>
+
+<div class="memoryText" id="memoryText">
+Hier kann ein persönlicher Erinnerungstext stehen.
+
+Ein Mensch geht, aber die Erinnerungen bleiben.
+Die gemeinsamen Momente, das Lachen und die Liebe
+bleiben für immer in unseren Herzen.
+</div>
+
+<div class="formGrid">
+
+</div>
+
+<div class="actions">
+<button onclick="saveMemory()">Erinnerung speichern</button>
+</div>
 </section>
 
 <section>
-<h2>Erinnerungen</h2>
-<p class="memoryText">Hier können später besondere Erinnerungen und Fotos an die verstorbene Person eingefügt werden.</p>
+<h2>🕰️ Lebensdaten</h2>
+
+<div class="infoGrid">
+<div class="infoCard">
+<strong>Geboren</strong>
+<span id="birthDisplay">—</span>
+</div>
+
+<div class="infoCard">
+<strong>Verstorben</strong>
+<span id="deathDisplay">—</span>
+</div>
+
+<div class="infoCard">
+<strong>Uhrzeit</strong>
+<span id="timeDisplay">—</span>
+</div>
+</div>
+</section>
+
+<section>
+<h2>📝 Erinnerungen</h2>
+<textarea id="memoryInput" placeholder="Schreibe hier eine persönliche Erinnerung..."></textarea>
+<div class="actions">
+<button onclick="saveMemory()">Erinnerung speichern</button>
+</div>
+<div id="memoryText" class="memoryText"></div>
+</section>
+
+<section>
+<h2>📸 Erinnerungen & Fotos</h2>
+
+<input id="galleryInput" type="file" accept="image/*" multiple>
+
+<div class="gallery" id="gallery">
+<div class="empty">Noch keine Erinnerungsfotos hinzugefügt.</div>
+</div>
+
+<div class="actions">
+<button onclick="savePhotos()">Fotos hinzufügen</button>
+</div>
+
+<div class="status">
+🔒 Private Fotos – nur auf diesem Gerät sichtbar und nicht öffentlich.
+</div>
 </section>
 
 <section class="candle">
-<h2>🕯️ Eine Kerze anzünden</h2>
-<p>Hinterlasse eine Kerze zum Gedenken.</p>
-<p id="count">0 Kerzen brennen</p>
-<button onclick="lightCandle()">🕯️ Kerze anzünden</button>
+<h2>🕯️ Gedenkkerzen</h2>
+
+<p>
+Eine Kerze für einen Menschen, der niemals vergessen wird.
+</p>
+
+<div id="count">0 Kerzen brennen</div>
+
 <div id="candles"></div>
+
+<div class="actions">
+<button id="candleButton" onclick="lightCandle()">🕯️ Kerze anzünden</button>
+</div>
 </section>
 
 <section>
-<h2>💜 Worte des Abschieds</h2>
-<p class="memoryText">Hier können später persönliche Kondolenznachrichten gesammelt werden.</p>
+<h2>💬 Kondolenz</h2>
+
+<div class="formGrid">
+<input id="condolenceName" placeholder="Dein Name">
+<textarea id="condolenceText" placeholder="Deine Kondolenznachricht..."></textarea>
+</div>
+
+<div class="actions">
+<button onclick="addCondolence()">Nachricht hinterlassen</button>
+</div>
+
+<div id="condolences"></div>
 </section>
 
-<footer>In stiller Erinnerung · Für immer im Herzen</footer>
+<section>
+<h2>🤍 Zum Abschied</h2>
+<textarea id="farewellInput" placeholder="Schreibe persönliche Worte zum Abschied..."></textarea>
+<div class="actions">
+<button onclick="saveFarewell()">Abschiedstext speichern</button>
+</div>
+<div id="farewellText" class="memoryText">Möge die Erinnerung an diesen Menschen für immer weiterleben.</div>
+</section>
+
+<footer>
+Werde dich niemals vergessen 🕊️<br>
+<small>Eine Seite zum Erinnern, Gedenken und Bewahren.</small>
+</footer>
+
 </div>
 
 <script>
-async function loadCandles(){
- try{
-  const r=await fetch("/api/candles");
-  const d=await r.json();
-  document.getElementById("count").textContent=d.count+" Kerze"+(d.count===1?"":"n")+" brennen";
-  document.getElementById("candles").innerHTML="";
-  for(let i=0;i<d.count;i++){
-   const c=document.createElement("span");
-   c.className="candleItem";
-   c.textContent="🕯️";
-   document.getElementById("candles").appendChild(c);
-  }
-  const b=document.querySelector(".candle button");
-  if(d.hasCandle){
-   b.disabled=true;
-   b.textContent="🕯️ Deine Kerze brennt bereits";
-   b.style.opacity=".5";
-  }
- }catch(e){console.error(e)}
+const KEY="gedenkseite_data_v1";
+
+function getData(){
+try{
+return JSON.parse(localStorage.getItem(KEY)||"{}");
+}catch(e){
+return {};
+}
 }
 
-async function lightCandle(){
- try{
-  const r=await fetch("/api/candle",{method:"POST"});
-  const d=await r.json();
-  document.getElementById("count").textContent=d.count+" Kerze"+(d.count===1?"":"n")+" brennen";
-  if(d.ok){
-   const c=document.createElement("span");
-   c.className="candleItem";
-   c.textContent="🕯️";
-   document.getElementById("candles").appendChild(c);
-  }
-  const b=document.querySelector(".candle button");
-  b.disabled=true;
-  b.textContent="🕯️ Deine Kerze brennt bereits";
-  b.style.opacity=".5";
- }catch(e){alert("Die Kerze konnte nicht angezündet werden.")}
+function setData(data){
+localStorage.setItem(KEY,JSON.stringify(data));
 }
 
-function applyPersonData(d){
- const fmt=x=>x?new Date(x+"T00:00:00").toLocaleDateString("de-DE"):"";
- document.getElementById("personName").textContent=d.name||"In liebevoller Erinnerung";
- let text="";
- if(d.birth)text+=fmt(d.birth)+" – ";
- if(d.death)text+=fmt(d.death);
- if(d.time)text+=" um "+d.time+" Uhr";
- document.getElementById("personDates").textContent=text||"In stiller Erinnerung";
+function formatDate(value){
+if(!value)return "—";
+const p=value.split("-");
+if(p.length!==3)return value;
+return p[2]+"."+p[1]+"."+p[0];
 }
 
-async function savePersonData(){
- const name=document.getElementById("nameInput").value.trim();
- const birth=document.getElementById("birthInput").value;
- const death=document.getElementById("deathInput").value;
- const time=document.getElementById("timeInput").value;
- if(!name||!death||!time){
-  alert("Bitte Name, Sterbedatum und Uhrzeit eintragen.");
-  return;
- }
- localStorage.setItem("memorialName",name);
- const r=await fetch("/api/memorial",{
-  method:"POST",
-  headers:{"Content-Type":"application/json"},
-  body:JSON.stringify({birth,death,time})
- });
- if(!r.ok){
-  alert("Die Gedenkdaten konnten nicht gespeichert werden.");
-  return;
- }
- applyPersonData({name,birth,death,time});
- alert("Gespeichert. Der Name bleibt nur auf diesem Gerät.");
+function savePerson(){
+const publicData=confirm("Dürfen deine eingegebenen Daten öffentlich angezeigt werden?`n`nOK = Ja, öffentlich anzeigen`nAbbrechen = Nein, nur auf deinem Gerät");
+localStorage.setItem("gedenk_public",""+publicData);
+const data=getData();
+
+data.name=document.getElementById("nameInput").value.trim();
+data.birth=document.getElementById("birthInput").value;
+data.death=document.getElementById("deathInput").value;
+data.time=document.getElementById("timeInput").value;
+
+if(!data.name){
+document.getElementById("saveStatus").textContent="Bitte einen Namen eingeben.";
+return;
 }
 
-async function loadPersonData(){
- try{
-  const r=await fetch("/api/memorial");
-  const d=await r.json();
-  const name=localStorage.getItem("memorialName")||"";
-  document.getElementById("nameInput").value=name;
-  document.getElementById("birthInput").value=d.birth||"";
-  document.getElementById("deathInput").value=d.death||"";
-  document.getElementById("timeInput").value=d.time||"";
-  applyPersonData({name,birth:d.birth||"",death:d.death||"",time:d.time||""});
- }catch(e){console.error(e)}
+setData(data);
+renderPerson();
+
+document.getElementById("saveStatus").textContent=
+"Gespeichert. Die Daten bleiben auf diesem Gerät.";
 }
-loadPersonData();
+
+function renderPerson(){
+const data=getData();
+
+document.getElementById("nameInput").value=data.name||"";
+document.getElementById("birthInput").value=data.birth||"";
+document.getElementById("deathInput").value=data.death||"";
+document.getElementById("timeInput").value=data.time||"";
+
+document.getElementById("personName").textContent=
+data.name||"In liebevoller Erinnerung";
+
+document.getElementById("heroDates").textContent=
+(data.birth?formatDate(data.birth):"Geburtsdatum")+" · "+
+(data.death?formatDate(data.death):"Sterbedatum");
+
+document.getElementById("birthDisplay").textContent=
+formatDate(data.birth);
+
+document.getElementById("deathDisplay").textContent=
+formatDate(data.death);
+
+document.getElementById("timeDisplay").textContent=
+data.time?data.time+" Uhr":"—";
+
+if(data.photo){
+document.getElementById("photoBox").innerHTML=
+'<img src="'+data.photo+'" alt="Gedenkfoto">';
+}
+}
+
+function clearPerson(){
+localStorage.removeItem(KEY);
+localStorage.removeItem("gedenk_memory");
+localStorage.removeItem("gedenk_photos");
+location.reload();
+}
+
+function saveMemory(){
+const text=document.getElementById("memoryInput").value.trim();
+
+if(!text){
+alert("Bitte einen Erinnerungstext eingeben.");
+return;
+}
+
+localStorage.setItem("gedenk_memory",text);
+document.getElementById("memoryText").textContent=text;
+document.getElementById("memoryInput").value="";
+}
+
+function loadMemory(){
+const text=localStorage.getItem("gedenk_memory");
+
+if(text){
+document.getElementById("memoryText").textContent=text;
+}
+}
+
+document.getElementById("photoInput").addEventListener("change",function(){
+const file=this.files[0];
+
+if(!file)return;
+
+const reader=new FileReader();
+
+reader.onload=function(e){
+const data=getData();
+data.photo=e.target.result;
+setData(data);
+renderPerson();
+document.getElementById("saveStatus").textContent=
+"Foto gespeichert.";
+};
+
+reader.readAsDataURL(file);
+});
+
+function saveFarewell(){
+const text=document.getElementById("farewellInput").value.trim();
+if(!text){
+alert("Bitte einen Abschiedstext eingeben.");
+return;
+}
+localStorage.setItem("gedenk_farewell",text);
+document.getElementById("farewellText").textContent=text;
+document.getElementById("farewellInput").value="";
+}
+
+function loadFarewell(){
+const text=localStorage.getItem("gedenk_farewell");
+if(text){
+document.getElementById("farewellText").textContent=text;
+}
+}
+
+function loadPhotos(){
+const photos=JSON.parse(localStorage.getItem("gedenk_photos")||"[]");
+const gallery=document.getElementById("gallery");
+
+gallery.innerHTML="";
+
+if(!photos.length){
+gallery.innerHTML='<div class="empty">Noch keine Erinnerungsfotos hinzugefügt.</div>';
+return;
+}
+
+photos.forEach(src=>{
+const div=document.createElement("div");
+div.className="galleryItem";
+
+const img=document.createElement("img");
+img.src=src;
+img.alt="Erinnerungsfoto";
+
+div.appendChild(img);
+gallery.appendChild(div);
+});
+}
+
+function savePhotos(){
+const input=document.getElementById("galleryInput");
+
+if(!input.files.length){
+alert("Bitte zuerst mindestens ein Foto auswählen.");
+return;
+}
+
+const photos=JSON.parse(localStorage.getItem("gedenk_photos")||"[]");
+let remaining=input.files.length;
+
+Array.from(input.files).forEach(file=>{
+const reader=new FileReader();
+
+reader.onload=function(e){
+photos.push(e.target.result);
+remaining--;
+
+if(remaining===0){
+localStorage.setItem("gedenk_photos",JSON.stringify(photos));
+input.value="";
+loadPhotos();
+}
+};
+
+reader.readAsDataURL(file);
+});
+}
+
+function loadCandles(){
+const count=Number(localStorage.getItem("gedenk_candles")||"0");
+const hasCandle=localStorage.getItem("gedenk_my_candle")==="1";
+
+document.getElementById("count").textContent=
+count+" Kerze"+(count===1?"":"n")+" brennen";
+
+const candles=document.getElementById("candles");
+candles.innerHTML="";
+
+for(let i=0;i<count;i++){
+const c=document.createElement("span");
+c.className="candleItem";
+c.textContent="🕯️";
+candles.appendChild(c);
+}
+
+const button=document.getElementById("candleButton");
+
+if(hasCandle){
+button.disabled=true;
+button.textContent="🕯️ Deine Kerze brennt bereits";
+button.style.opacity=".5";
+}
+}
+
+function lightCandle(){
+if(localStorage.getItem("gedenk_my_candle")==="1"){
+return;
+}
+
+let count=Number(localStorage.getItem("gedenk_candles")||"0");
+count++;
+
+localStorage.setItem("gedenk_candles",String(count));
+localStorage.setItem("gedenk_my_candle","1");
+
 loadCandles();
+}
+
+function loadCondolences(){
+const list=JSON.parse(localStorage.getItem("gedenk_condolences")||"[]");
+const box=document.getElementById("condolences");
+
+box.innerHTML="";
+
+if(!list.length){
+box.innerHTML=
+'<div class="empty">Noch keine Kondolenznachrichten vorhanden.</div>';
+return;
+}
+
+list.forEach(item=>{
+const div=document.createElement("div");
+div.className="condolence";
+
+const strong=document.createElement("strong");
+strong.textContent=item.name;
+
+const p=document.createElement("p");
+p.textContent=item.text;
+
+div.appendChild(strong);
+div.appendChild(p);
+box.appendChild(div);
+});
+}
+
+function addCondolence(){
+const name=document.getElementById("condolenceName").value.trim();
+const text=document.getElementById("condolenceText").value.trim();
+
+if(!name||!text){
+alert("Bitte Name und Nachricht eingeben.");
+return;
+}
+
+const list=JSON.parse(localStorage.getItem("gedenk_condolences")||"[]");
+
+list.push({
+name:name,
+text:text
+});
+
+localStorage.setItem("gedenk_condolences",JSON.stringify(list));
+
+document.getElementById("condolenceName").value="";
+document.getElementById("condolenceText").value="";
+
+loadCondolences();
+}
+
+renderPerson();
+loadMemory();
+loadFarewell();
+loadPhotos();
+loadCandles();
+loadCondolences();
 </script>
 </body>
 </html>
+
 
 
 
