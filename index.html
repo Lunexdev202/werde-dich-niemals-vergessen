@@ -333,8 +333,9 @@ Eine Kerze für einen Menschen, der niemals vergessen wird.
 </section>
 
 <footer>
-Werde dich niemals vergessen 🕊️<br>
-<small>Eine Seite zum Erinnern, Gedenken und Bewahren.</small>
+  Werde dich niemals vergessen 🕊️<br>
+  <small>Eine Seite zum Erinnern, Gedenken und Bewahren.</small><br>
+  <small>Made by <code>lunexdev202</code></small>
 </footer>
 
 </div>
@@ -362,7 +363,10 @@ return p[2]+"."+p[1]+"."+p[0];
 }
 
 function savePerson(){
-const publicData=confirm("Dürfen deine eingegebenen Daten öffentlich angezeigt werden?`n`nOK = Ja, öffentlich anzeigen`nAbbrechen = Nein, nur auf deinem Gerät");
+const publicData=confirm("Dürfen deine eingegebenen Daten öffentlich angezeigt werden?
+
+OK = Ja, öffentlich anzeigen
+Abbrechen = Nein, nur auf deinem Gerät");
 localStorage.setItem("gedenk_public",""+publicData);
 const data=getData();
 
@@ -632,6 +636,8 @@ loadCondolences();
 </script>
 </body>
 </html>
+
+
 
 
 
